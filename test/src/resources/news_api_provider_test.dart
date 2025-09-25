@@ -11,7 +11,7 @@ void main() {
       return Response(json.encode([1, 2, 3, 4]), 200);
     });
 
-    final ids = await newsApi.fetchTopId();
+    final ids = await newsApi.fetchTopIds();
 
     expect(ids, [1, 2, 3, 4]);
   });
