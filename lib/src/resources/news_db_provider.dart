@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'dart:async';
 
-class NewsDbProvider implements Source {
+class NewsDbProvider implements Source, Cache {
   late Database db;
 
   // init method
@@ -57,6 +57,7 @@ class NewsDbProvider implements Source {
     return null;
   }
 
+  @override
   Future<int> addItem(ItemModel item) {
     return db.insert("Items", item.toMapForDb());
   }
