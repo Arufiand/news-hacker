@@ -9,11 +9,11 @@ class Repository {
   NewsApiProvider apiProvider = NewsApiProvider();
 
   Future<List<int>> fetchTopIds() {
-    return apiProvider.fetchTopId();
+    return apiProvider.fetchTopIds();
   }
 
   // Check first if the ID from the fetchTopId is on the SQLite or not
-  Future<ItemModel> fetchItem(int id) async {
+  Future<ItemModel?> fetchItem(int id) async {
     var item = await dbProvider.fetchItem(id);
     if (item != null) {
       return item;
@@ -25,4 +25,9 @@ class Repository {
     // return the item
     return item;
   }
+}
+
+abstract class Source {
+  Future<List<int>> fetchTopIds();
+  Future<ItemModel?> fetchItem(int id);
 }
