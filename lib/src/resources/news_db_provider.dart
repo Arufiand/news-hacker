@@ -5,20 +5,37 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'dart:async';
 
-// class NewsDbProvider {
-//   Database db;
-//
-//   // init method
-//   init() async {
-//     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-//     final path = join(documentsDirectory.path, 'items.db');
-//
-//     db = await openDatabase(
-//       path,
-//       version: 1,
-//       onCreate: (Database newDb, int version) {
-//
-//       },
-//     );
-//   }
-// }
+class NewsDbProvider {
+  Database db;
+
+  // init method
+  init() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    final path = join(documentsDirectory.path, 'items.db');
+
+    db = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database newDb, int version) {
+        newDb.execute("""
+          CREATE TABLE items 
+            (
+              id INTEGER PRIMARY KEY,
+              type TEXT,
+              by TEXT,
+              time INTEGER,
+              text TEXT,
+              parent INTEGER,
+              kids BLOB,
+              dead INTEGER,
+              deleted INTEGER,
+              url TEXT,
+              score INTEGER,
+              title TEXT,
+              descendants INTEGER
+            )
+        """);
+      },
+    );
+  }
+}
