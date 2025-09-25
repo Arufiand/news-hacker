@@ -1,3 +1,4 @@
+import 'package:news_learning/src/models/item_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider_android/path_provider_android.dart';
@@ -37,5 +38,20 @@ class NewsDbProvider {
         """);
       },
     );
+  }
+
+  fetchItem(int id) async {
+    final maps = await db.query(
+      "Items", // TABLE NAME
+      columns: null, // COLUMN LIKE *
+      where: "id = ?", // WHERE
+      whereArgs: [id], // ???
+    );
+
+    if (maps.isNotEmpty) {
+      return ItemModel.fromDb(maps.first);
+    }
+
+    return null;
   }
 }
