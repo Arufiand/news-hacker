@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:news_learning/src/models/item_model.dart';
+
 import 'news_api_provider.dart';
 import 'news_db_provider.dart';
 
@@ -6,12 +8,12 @@ class Repository {
   NewsDbProvider dbProvider = NewsDbProvider();
   NewsApiProvider apiProvider = NewsApiProvider();
 
-  fetchTopIds() {
+  Future<List<int>> fetchTopIds() {
     return apiProvider.fetchTopId();
   }
 
   // Check first if the ID from the fetchTopId is on the SQLite or not
-  fetchItem(int id) async {
+  Future<ItemModel> fetchItem(int id) async {
     var item = await dbProvider.fetchItem(id);
     if (item != null) {
       return item;

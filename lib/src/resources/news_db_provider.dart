@@ -1,7 +1,7 @@
 import 'package:news_learning/src/models/item_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider_android/path_provider_android.dart';
+// import 'package:path_provider_android/path_provider_android.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'dart:async';
@@ -10,7 +10,7 @@ class NewsDbProvider {
   late Database db;
 
   // init method
-  init() async {
+  void init() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'items.db');
 
@@ -40,7 +40,7 @@ class NewsDbProvider {
     );
   }
 
-  fetchItem(int id) async {
+  Future<ItemModel?> fetchItem(int id) async {
     final maps = await db.query(
       "Items", // TABLE NAME
       columns: null, // COLUMN LIKE *
@@ -55,7 +55,7 @@ class NewsDbProvider {
     return null;
   }
 
-  addItem(ItemModel item) {
+  Future<int> addItem(ItemModel item) {
     return db.insert("Items", item.toMapForDb());
   }
 }
