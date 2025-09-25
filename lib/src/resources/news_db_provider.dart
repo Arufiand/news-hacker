@@ -7,7 +7,7 @@ import 'package:path/path.dart';
 import 'dart:async';
 
 class NewsDbProvider {
-  Database db;
+  late Database db;
 
   // init method
   init() async {
